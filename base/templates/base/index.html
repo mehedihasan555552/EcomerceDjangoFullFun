@@ -1,0 +1,134 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Mehedi Ecomerce{% endif %}
+{% endblock %}
+{% block content %}
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="{% url 'index'%}">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black">Shop</strong></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-9 order-2">
+                <div class="row mb-5">
+                    {% for product in products %}
+                    <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                        <div class="block-4 text-center border">
+                            <figure class="block-4-image">
+                                <a href="{% url 'product-detail' product.id %}"><img src="{{ product.image.url }}" 
+                                        alt="Image placeholder" class="img-fluid" style="height: 10vw;"></a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3><a href="{% url 'product-detail' product.id %}">{{ product.name|truncatechars:35 }}</a></h3>
+                                <p class="mb-0">{{ product.description|truncatechars:40 }}</p>
+                                <hr>
+                                <button data-product={{product.id}} data-action='add' class='btn btn-success add-btn update-cart' >Add to Cart</button>
+                                <a class='btn btn-secondary' href="{% url 'product-detail' product.id %}">View</a>
+                                <hr>
+                                <p class="text-primary font-weight-bold">Price: ${{ product.price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="row" data-aos="fade-up">
+                    <div class="col-md-12 text-center">
+                        <div class="site-block-27">
+                            <ul>
+                                <!-- <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&gt;</a></li> -->
+
+                                {% if users.has_other_pages %}
+                                <ul class="pagination">
+                                    {% if users.has_previous %}
+                                    <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in users.paginator.page_range %}
+                                    {% if users.number == i %}
+                                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if users.has_next %}
+                                    <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 order-1 mb-5 mb-md-0">
+                <div class="border p-4 rounded mb-4">
+                    <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+                    <ul class="list-unstyled mb-0">
+                        <li {% if not category %} class="mb-1" {% endif %}>
+                            <a href="{% url 'index' %}" class="d-flex"><span>All</a>
+                        </li>
+                        
+                        <li  class="mb-1">
+                            <a href="{% url 'men'%}" class="d-flex">Men</a>
+                        </li>
+                        <li  class="mb-1">
+                            <a href="{% url 'women'%}" class="d-flex">Women</a>
+                        </li>
+                        <li  class="mb-1">
+                            <a href="{% url 'kids'%}" class="d-flex">Kids</a>
+                        </li>
+                        <li  class="mb-1">
+                            <a href="{% url 'electronic'%}" class="d-flex">Electronic</a>
+                        </li>
+                        <li  class="mb-1">
+                            <a href="{% url 'mobile'%}" class="d-flex">Mobile</a>
+                        </li>
+                        <li  class="mb-1">
+                            <a href="{% url 'sports'%}" class="d-flex">Sports</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+
+                <div class="border p-4 rounded mb-4">
+                    <h3 class="mb-3 h6 text-uppercase text-black d-block">DESC & ASC Search</h3>
+                    <ul class="list-unstyled mb-0">
+                        
+                        
+                        <li  class="mb-1">
+                            <a href="{% url 'high'%}" class="d-flex"><span class="icon icon-level-up"> High to Low</span></a>
+                        </li>
+                        <li  class="mb-1">
+                          <a href="{% url 'low'%}" class="d-flex"><span class="icon icon-level-down"> Low to High</span> </a>
+                        </li>
+                       
+                       
+                    </ul>
+                </div>
+            </div>
+
+
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

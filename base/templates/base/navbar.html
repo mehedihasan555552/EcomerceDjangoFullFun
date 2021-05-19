@@ -1,0 +1,81 @@
+    <header class="site-navbar" role="banner">
+        <div class="site-navbar-top">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                        <form  class="site-block-top-search" method="get" action="/search">
+                            <!--  <span class="icon icon-search2"></span> -->
+                            <div class="input-group">
+                            <input type="text" class="form-control border-10 " placeholder="Search" name="query" id="query">
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+
+                           
+                            
+                            
+                            
+                            
+                        </form>
+                    </div>
+
+                    <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                        <div class="site-logo">
+                            <a href="{% url 'index'%}" class="js-logo-clone">Mehedi Ecommerce</a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                        <div class="site-top-icons">
+                            <ul>
+                                {% if user.is_authenticated %}
+                                <li style="margin-right: 40px;"><h5><span class="badge badge-secondary">User: {{user.username}}</span></h5></li>
+                                {% endif %}
+                                <li><a href="{% url 'account_login' %}"><span class="icon icon-person"></span></a></li>
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'account_logout' %}"><span class="icon icon-sign-out"></span></a></li>
+                                
+                                {% endif %}
+                                
+                                <li>
+                                    <a href="{% url 'cart'%}" class="site-cart">
+                                        <span class="icon icon-shopping_cart"></span>
+                                        <span class="count">
+                                        
+                                             {{cartItems}}
+                                         
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="d-inline-block d-md-none ml-md-0"><a href=""
+                                        class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+            <div class="container">
+                <ul class="site-menu js-clone-nav d-none d-md-block">
+                    <li><a href="{% url 'index'%}">Home</a></li>
+                    <li><a href="{% url 'index'%}">Shop</a></li>
+                    <li><a href="{% url 'account_login' %}">Login</a></li>
+                    {% if user.is_superuser %}
+                    <li><a href="{% url 'orders' %}">Order Page</a></li>
+                    {% endif %}
+                    <li><a href="">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% if messages %}
+          <ul class="messages">
+             {% for message in messages %}
+             <div class="alert alert-{{ message.tags }}" role="alert" style="margin-left: 1000px; margin-right:20px;">
+            <h4>{{ message }}</h4> 
+            </div>
+              {% endfor %}
+             </ul>
+        {% endif %}
+    </header>

@@ -1,0 +1,57 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<table class="table table-dark table-hover" style="margin: 20px;">
+    <thead>
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">Order Time</th>
+        <th scope="col">Order ID</th>
+        <th scope="col">Order Complete</th>
+        <th scope="col">Payment Status</th>
+        <th scope="col">Delivery Status</th>
+      </tr>
+    </thead>
+    {% for i in order %}
+    
+    <tbody>
+     
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.customer.id}}</td>
+        <td>{{i.totalprice}}</td>
+        <td>{{i.date_added}}</td>
+        <td>{{i.transaction_id}}</td>
+        {% if i.complete %}
+        <td><img  src="{% static 'images/checkmark.png'%} " width="40px" height="40px"/></td>
+        {% else %}
+        <td><img  src="{% static 'images/cancel.png'%} " width="40px" height="40px"/></td>
+        {% endif %}
+
+        {% if i.isPaid %}
+        <td><img  src="{% static 'images/checkmark.png'%} " width="40px" height="40px"/></td>
+        {% else %}
+        <td><img  src="{% static 'images/cancel.png'%} " width="40px" height="40px"/></td>
+        {% endif %}
+        
+        
+        {% if i.isDelivered %}
+        <td><img  src="{% static 'images/checkmark.png'%} " width="40px" height="40px"/></td>
+        {% else %}
+        <td><img  src="{% static 'images/cancel.png'%} " width="40px" height="40px"/></td>
+        {% endif %}
+      </tr>
+      
+      
+        
+    </tbody>
+   
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
